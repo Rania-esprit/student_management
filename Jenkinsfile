@@ -7,7 +7,20 @@ pipeline {
         IMAGE_TAG = "latest"
     }
 
+    tools {
+        jdk 'jdk17'
+        maven 'maven'
+    }
+
     stages {
+
+        stage('Checkout from GitHub') {
+            steps {
+                git branch: 'master',
+                    url: 'https://github.com/Rania-esprit/student_management.git'
+            }
+        }
+
         stage('Build Maven') {
             steps {
                 sh 'mvn clean package -DskipTests'
